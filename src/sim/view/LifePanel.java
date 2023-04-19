@@ -22,5 +22,10 @@ public class LifePanel extends JPanel
 		this.setPreferredSize(new Dimension(800, 800));
 		this.setBackground(Color.BLACK);
 	}
+	
+	public static void start()
+	{
+		
+	}
 
 }
