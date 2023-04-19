@@ -18,7 +18,7 @@ public class SimPanel extends JPanel
 		
 		this.app = app;
 		this.layout = new SpringLayout();
-		this.panel = new LifePanel();
+		this.panel = new LifePanel(app);
 		
 		setupPanel();
 		setupListeners();
@@ -41,7 +41,7 @@ public class SimPanel extends JPanel
 	
 	private void setupLayout()
 	{
-		
+		layout.putConstraint(SpringLayout.WEST, panel, -750, SpringLayout.EAST, this);
 	}
 
 }
