@@ -10,6 +10,7 @@ public class SimPanel extends JPanel
 {
 	private Controller app;
 	private SpringLayout layout;
+	private LifePanel panel;
 	
 	public SimPanel(Controller App)
 	{
@@ -17,6 +18,7 @@ public class SimPanel extends JPanel
 		
 		this.app = app;
 		this.layout = new SpringLayout();
+		this.panel = new LifePanel();
 		
 		setupPanel();
 		setupListeners();
@@ -25,7 +27,11 @@ public class SimPanel extends JPanel
 	
 	private void setupPanel()
 	{
+		this.setLayout(layout);
+		this.setBackground(Color.WHITE);
+		this.setPreferredSize(new Dimension(1200, 900));
 		
+		this.add(panel);
 	}
 	
 	private void setupListeners()
