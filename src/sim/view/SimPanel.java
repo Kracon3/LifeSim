@@ -13,7 +13,25 @@ public class SimPanel extends JPanel
 	private Controller app;
 	private SpringLayout layout;
 	private LifePanel panel;
+	
+	private JPanel buttonPanel;
+	private JLabel numSliderLabel;
+	private JLabel dietSliderLabel;
+	private JLabel plantSliderLabel;
+	
 	private JButton startButton;
+	
+	private JSlider numSlider;
+	private JSlider plantSlider;
+	private final int MINIMUM_NUM = 0;
+	private final int MAXIMUM_NUM = 50;
+	private int creatureNum = 25;
+	private int plantNum = 25;
+	
+	private JSlider dietSlider;
+	private final int MINIMUM_RATIO = 1;
+	private final int MAXIMUM_RATIO = 100;
+	private int dietRatio = 50;
 	
 	public SimPanel(Controller App)
 	{
@@ -22,8 +40,19 @@ public class SimPanel extends JPanel
 		this.app = app;
 		this.layout = new SpringLayout();
 		this.panel = new LifePanel(app);
+		
+		this.buttonPanel = new JPanel(new GridLayout(0, 1));
+		this.numSliderLabel = new JLabel("Number of animals");
+		this.dietSliderLabel = new JLabel("Herbivorous : Carnivorous");
+		this.plantSliderLabel = new JLabel("Number of plants");
+		
 		this.startButton = new JButton("Start");
 		
+		this.numSlider = new JSlider(MINIMUM_NUM, MAXIMUM_NUM, creatureNum);
+		this.dietSlider = new JSlider(MINIMUM_RATIO, MAXIMUM_RATIO, dietRatio);
+		this.plantSlider = new JSlider(MINIMUM_NUM, MAXIMUM_NUM, plantNum);
+		
+		setupSliders();
 		setupPanel();
 		setupListeners();
 		setupLayout();
@@ -34,6 +63,14 @@ public class SimPanel extends JPanel
 		this.setLayout(layout);
 		this.setBackground(Color.WHITE);
 		this.setPreferredSize(new Dimension(1200, 900));
+		
+		this.add(buttonPanel);
+		buttonPanel.add(numSliderLabel);
+		buttonPanel.add(numSlider);
+		buttonPanel.add(dietSliderLabel);
+		buttonPanel.add(dietSlider);
+		buttonPanel.add(plantSliderLabel);
+		buttonPanel.add(plantSlider);
 		
 		this.add(startButton);
 		
@@ -53,6 +90,43 @@ public class SimPanel extends JPanel
 		layout.putConstraint(SpringLayout.EAST, startButton, -50, SpringLayout.WEST, panel);
 		layout.putConstraint(SpringLayout.SOUTH, startButton, 0, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.NORTH, startButton, -50, SpringLayout.SOUTH, this);
+	
+		layout.putConstraint(SpringLayout.NORTH, buttonPanel, 25, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.WEST, buttonPanel, 25, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.EAST, buttonPanel, -25, SpringLayout.WEST, panel);
+	}
+	
+	private void setupSliders()
+	{
+		//numSlider setup
+		Hashtable<Integer, JLabel> numLabels = new Hashtable<Integer, JLabel>();
+
+		numSlider.setLabelTable(numLabels);
+		numSlider.setOrientation(JSlider.HORIZONTAL);
+		numSlider.setSnapToTicks(true);
+		numSlider.setMajorTickSpacing(3);
+		numSlider.setMinorTickSpacing(1);
+		numSlider.setPaintTicks(true);
+		
+		//dietSlider setup
+		Hashtable<Integer, JLabel> dietLabels = new Hashtable<Integer, JLabel>();
+
+		dietSlider.setLabelTable(dietLabels);
+		dietSlider.setOrientation(JSlider.HORIZONTAL);
+		dietSlider.setSnapToTicks(true);
+		dietSlider.setMajorTickSpacing(3);
+		dietSlider.setMinorTickSpacing(1);
+		dietSlider.setPaintTicks(true);
+		
+		//plantSlider setup
+		Hashtable<Integer, JLabel> plantLabels = new Hashtable<Integer, JLabel>();
+
+		dietSlider.setLabelTable(plantLabels);
+		dietSlider.setOrientation(JSlider.HORIZONTAL);
+		dietSlider.setSnapToTicks(true);
+		dietSlider.setMajorTickSpacing(3);
+		dietSlider.setMinorTickSpacing(1);
+		dietSlider.setPaintTicks(true);
 	}
 
 }
