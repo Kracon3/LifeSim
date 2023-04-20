@@ -2,9 +2,9 @@ package sim.model;
 
 public class Plant
 {
-	int nourishment;
-	int xPosition;
-	int yPosition;
+	private int nourishment;
+	private int xPosition;
+	private int yPosition;
 	
 	public Plant(int nourishment, int xPosition, int yPosition)
 	{

@@ -2,15 +2,16 @@ package sim.model;
 
 public class Creature
 {
-	public int speed;
-	public int intelligence;
-	public int scariness;
-	public int fullness;
-	public boolean eatsMeat;
-	public int xPosition;
-	public int yPosition;
+	private int speed;
+	private int intelligence;
+	private int scariness;
+	private int fullness;
+	private int nourishment;
+	private boolean eatsMeat;
+	private int xPosition;
+	private int yPosition;
 	
-	public Creature(int speed, int intelligence, int scariness, int fullness, boolean eatsMeat, int xPosition, int yPosition)
+	public Creature(int speed, int intelligence, int scariness, int fullness, int nourishment, boolean eatsMeat, int xPosition, int yPosition)
 	{
 		this.speed = speed;
 		this.intelligence = intelligence;
@@ -20,9 +21,10 @@ public class Creature
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 	}
-	public Creature(int fullness, boolean eatsMeat, int xPosition, int yPosition)
+	public Creature(int fullness, int nourishment, boolean eatsMeat, int xPosition, int yPosition)
 	{
 		this.fullness = fullness;
+		this.nourishment = nourishment;
 		this.eatsMeat = eatsMeat;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
