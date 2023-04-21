@@ -70,8 +70,6 @@ public class SimPanel extends JPanel
 		this.add(buttonPanel);
 		buttonPanel.add(numSliderLabel);
 		buttonPanel.add(numSlider);
-		buttonPanel.add(dietSliderLabel);
-		buttonPanel.add(dietSlider);
 		buttonPanel.add(plantSliderLabel);
 		buttonPanel.add(plantSlider);
 		
