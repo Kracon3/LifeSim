@@ -1,8 +1,10 @@
 package sim.view;
 
 import sim.controller.Controller;
+import sim.view.SimPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class LifePanel extends JPanel
 {
@@ -27,5 +29,6 @@ public class LifePanel extends JPanel
 	{
 		
 	}
+	
 
 }

@@ -10,6 +10,7 @@ import javax.swing.event.*;
 
 public class SimPanel extends JPanel
 {
+	//data members
 	private Controller app;
 	private SpringLayout layout;
 	private LifePanel panel;
@@ -25,14 +26,15 @@ public class SimPanel extends JPanel
 	private JSlider plantSlider;
 	private final int MINIMUM_NUM = 0;
 	private final int MAXIMUM_NUM = 50;
-	private int creatureNum = 25;
-	private int plantNum = 25;
+	public int creatureNum = 25;
+	public int plantNum = 25;
 	
 	private JSlider dietSlider;
 	private final int MINIMUM_RATIO = 1;
 	private final int MAXIMUM_RATIO = 100;
-	private int dietRatio = 50;
+	public int dietRatio = 50;
 	
+	//constructor
 	public SimPanel(Controller App)
 	{
 		super();
@@ -58,6 +60,7 @@ public class SimPanel extends JPanel
 		setupLayout();
 	}
 	
+	//panel setup methods
 	private void setupPanel()
 	{
 		this.setLayout(layout);
@@ -79,6 +82,42 @@ public class SimPanel extends JPanel
 	
 	private void setupListeners()
 	{
+		numSlider.addChangeListener(new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent event)
+			{
+				if (!numSlider.getValueIsAdjusting())
+				{
+					creatureNum = numSlider.getValue();
+				}
+			}
+		});
+		
+		dietSlider.addChangeListener(new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent event)
+			{
+				if (!dietSlider.getValueIsAdjusting())
+				{
+					dietRatio = dietSlider.getValue();
+				}
+			}
+		});
+		
+		plantSlider.addChangeListener(new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent event)
+			{
+				if (!plantSlider.getValueIsAdjusting())
+				{
+					plantNum = plantSlider.getValue();
+				}
+			}
+		});
+		
 		startButton.addActionListener(click -> LifePanel.start());
 	}
 	
@@ -128,5 +167,6 @@ public class SimPanel extends JPanel
 		dietSlider.setMinorTickSpacing(1);
 		dietSlider.setPaintTicks(true);
 	}
+	
 
 }
