@@ -45,17 +45,17 @@ public class LifePanel extends JPanel
 		for(int index = 0; index < creatureNum; index++)
 		{
 			creatures[index] = new Creature(0, 10, index * 10);
-			drawRectangle(creatures[index].getXPosition(), creatures[index].getYPosition(), 5, 5);
+			drawRectangle(creatures[index].getXPosition(), creatures[index].getYPosition(), 5, 5, Color.GREEN);
 		}
 		
 		for(int index = 0; index < plantNum; index++)
 		{
 			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 800), (int) (Math.random() * 800));
-			drawRectangle(plants[index].getXPosition(), plants[index].getYPosition(), 5, 5);
+			drawRectangle(plants[index].getXPosition(), plants[index].getYPosition(), 5, 5, Color.GREEN);
 		}
 	}
 	
-	private void drawRectangle(int xPosition, int yPosition, int width, int height)
+	private void drawRectangle(int xPosition, int yPosition, int width, int height, Color rectColor)
 	{
 		
 	}
