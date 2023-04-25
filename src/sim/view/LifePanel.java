@@ -39,8 +39,6 @@ public class LifePanel extends JPanel
 	
 	private void populate()
 	{
-		Graphics graphics = field.createGraphics();
-		
 		int creatureNum = simPanel.getCreatureNum();
 		int plantNum = simPanel.getPlantNum();
 		int dietRatio = simPanel.getDietRatio();
@@ -48,23 +46,17 @@ public class LifePanel extends JPanel
 		Creature[] creatures = new Creature[creatureNum];
 		Plant[] plants = new Plant[plantNum];
 		
-		graphics.setColor(Color.BLUE);
-		
 		for(int index = 0; index < creatureNum; index++)
 		{
 			creatures[index] = new Creature(0, 10, index * 10);
-			graphics.drawRect(creatures[index].getXPosition(), creatures[index].getYPosition(), 5, 5);
 		}
-		
-		graphics.setColor(Color.GREEN);
 		
 		for(int index = 0; index < plantNum; index++)
 		{
 			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 800), (int) (Math.random() * 800));
-			graphics.drawRect(plants[index].getXPosition(), plants[index].getYPosition(), 5, 5);
+			
 		}
 		
-		repaint();
 	}
 	
 	
