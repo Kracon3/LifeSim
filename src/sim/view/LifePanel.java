@@ -55,7 +55,7 @@ public class LifePanel extends JPanel
 		
 		for(int index = 0; index < plantNum; index++)
 		{
-			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 800), (int) (Math.random() * 800));
+			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 880 + 25), (int) (Math.random() * 900 + 5));
 			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
 		}
 		
