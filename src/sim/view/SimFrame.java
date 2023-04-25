@@ -22,7 +22,7 @@ public class SimFrame extends JFrame
 	private void setupFrame()
 	{
 		this.setTitle("Simulation");
-		this.setSize(1040, 828);
+		this.setSize(1200, 938);
 		this.setResizable(false);
 		this.setContentPane(panel);
 		

@@ -25,9 +25,9 @@ public class SimPanel extends JPanel
 	private JSlider numSlider;
 	private JSlider plantSlider;
 	private final int MINIMUM_NUM = 0;
-	private final int MAXIMUM_NUM = 50;
-	private int creatureNum = 25;
-	private int plantNum = 25;
+	private final int MAXIMUM_NUM = 60;
+	private int creatureNum = 60;
+	private int plantNum = 60;
 	
 	private JSlider dietSlider;
 	private final int MINIMUM_RATIO = 1;
@@ -65,7 +65,7 @@ public class SimPanel extends JPanel
 	{
 		this.setLayout(layout);
 		this.setBackground(Color.WHITE);
-		this.setPreferredSize(new Dimension(1200, 900));
+		this.setPreferredSize(new Dimension(1200, 938));
 		
 		this.add(buttonPanel);
 		buttonPanel.add(numSliderLabel);

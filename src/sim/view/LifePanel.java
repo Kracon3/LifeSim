@@ -20,14 +20,14 @@ public class LifePanel extends JPanel
 		
 		this.app = app;
 		this.simPanel = simPanel;
-		this.field = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
+		this.field = new BufferedImage(910, 910, BufferedImage.TYPE_INT_ARGB);
 		
 		setupPanel();
 	}
 	
 	private void setupPanel()
 	{
-		this.setPreferredSize(new Dimension(800, 800));
+		this.setPreferredSize(new Dimension(910, 910));
 		this.setBackground(Color.BLACK);
 		
 	}
@@ -73,7 +73,7 @@ public class LifePanel extends JPanel
 	
 	public void clear()
 	{
-		this.field = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
+		this.field = new BufferedImage(910, 910, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 	}
 	
