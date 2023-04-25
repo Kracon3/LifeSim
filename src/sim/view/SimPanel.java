@@ -26,13 +26,13 @@ public class SimPanel extends JPanel
 	private JSlider plantSlider;
 	private final int MINIMUM_NUM = 0;
 	private final int MAXIMUM_NUM = 50;
-	public int creatureNum = 25;
-	public int plantNum = 25;
+	private int creatureNum = 25;
+	private int plantNum = 25;
 	
 	private JSlider dietSlider;
 	private final int MINIMUM_RATIO = 1;
 	private final int MAXIMUM_RATIO = 100;
-	public int dietRatio = 50;
+	private int dietRatio = 50;
 	
 	//constructor
 	public SimPanel(Controller App)
@@ -116,7 +116,7 @@ public class SimPanel extends JPanel
 			}
 		});
 		
-		startButton.addActionListener(click -> LifePanel.start());
+		startButton.addActionListener(click -> panel.start());
 	}
 	
 	private void setupLayout()
@@ -166,5 +166,36 @@ public class SimPanel extends JPanel
 		dietSlider.setPaintTicks(true);
 	}
 	
+	//setters
+	public void setCreatureNum(int creatureNum)
+	{
+		this.creatureNum = creatureNum;
+	}
+	
+	public void setPlantNum(int plantNum)
+	{
+		this.plantNum = plantNum;
+	}
+	
+	public void setDietRatio(int dietRatio)
+	{
+		this.dietRatio = dietRatio;
+	}
+	
+	//getters
+	public int getCreatureNum()
+	{
+		return this.creatureNum;
+	}
+	
+	public int getPlantNum()
+	{
+		return this.plantNum;
+	}
+	
+	public int getDietRatio()
+	{
+		return this.dietRatio;
+	}
 
 }

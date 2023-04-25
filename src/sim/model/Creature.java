@@ -21,11 +21,10 @@ public class Creature
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 	}
-	public Creature(int fullness, int nourishment, boolean eatsMeat, int xPosition, int yPosition)
+	
+	public Creature(int fullness,  int xPosition, int yPosition)
 	{
 		this.fullness = fullness;
-		this.nourishment = nourishment;
-		this.eatsMeat = eatsMeat;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 	}
