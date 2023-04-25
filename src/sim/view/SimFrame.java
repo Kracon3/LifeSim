@@ -29,8 +29,4 @@ public class SimFrame extends JFrame
 		this.setVisible(true);
 	}
 	
-	public SimPanel getSimPanel()
-	{
-		return this.panel;
-	}
 }
