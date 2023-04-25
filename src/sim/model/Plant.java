@@ -18,10 +18,13 @@ public class Plant
 		return nourishment;
 	}
 	
-	public int[] getPosition()
+	public int getXPosition()
 	{
-		int[] position = {xPosition, yPosition};
-		return position;
+		return xPosition;
+	}
+	public int getYPosition()
+	{
+		return yPosition;
 	}
 
 }

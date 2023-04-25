@@ -49,7 +49,7 @@ public class Creature
 		this.eatsMeat = isCarnivorous;
 	}
 	
-	public void consume(int nourishment)
+	public void eat(int nourishment)
 	{
 		this.fullness += nourishment;
 	}
@@ -85,10 +85,14 @@ public class Creature
 		return fullness;
 	}
 	
-	public int[] getPosition()
+	public int getXPosition()
 	{
-		int[] position = {xPosition, yPosition};
-		return position;
+		return xPosition;
+	}
+	
+	public int getYPosition()
+	{
+		return yPosition;
 	}
 	
 }

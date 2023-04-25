@@ -50,9 +50,13 @@ public class LifePanel extends JPanel
 		for(int index = 0; index < plantNum; index++)
 		{
 			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 800), (int) (Math.random() * 800));
+			drawRectangle()
 		}
 	}
 	
-	
+	private void drawRectangle(int xPosition, int yPosition, int width, int height)
+	{
+		
+	}
 	
 }
