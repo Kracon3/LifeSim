@@ -35,11 +35,8 @@ public class LifePanel extends JPanel
 	public void start()
 	{
 		clear();
-		populate();
-	}
-	
-	private void populate()
-	{
+		
+		//Population Phase
 		int creatureNum = simPanel.getCreatureNum();
 		int plantNum = simPanel.getPlantNum();
 		int dietRatio = simPanel.getDietRatio();
@@ -59,6 +56,18 @@ public class LifePanel extends JPanel
 			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
 		}
 		
+		//Movement Phase
+		for(int index = 0; index < creatureNum; index++)
+		{
+			
+			draw(10, 10, creatures[index].getXPosition(), creatures[index].getYPosition(), Color.BLUE);
+		}
+		
+		for(int index = 0; index < plantNum; index++)
+		{
+			
+			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
+		}
 	}
 	
 	private void draw(int width, int height, int x, int y, Color color)

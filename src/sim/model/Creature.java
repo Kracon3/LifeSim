@@ -79,7 +79,7 @@ public class Creature
 		return scariness;
 	}
 	
-	public boolean getIsCarinvore()
+	public boolean getIsCarnivore()
 	{
 		return eatsMeat;
 	}
