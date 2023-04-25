@@ -5,7 +5,6 @@ import sim.view.SimPanel;
 import sim.model.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class LifePanel extends JPanel
@@ -30,10 +29,12 @@ public class LifePanel extends JPanel
 	{
 		this.setPreferredSize(new Dimension(800, 800));
 		this.setBackground(Color.BLACK);
+		
 	}
 	
 	public void start()
 	{
+		clear();
 		populate();
 	}
 	
@@ -48,15 +49,39 @@ public class LifePanel extends JPanel
 		
 		for(int index = 0; index < creatureNum; index++)
 		{
-			creatures[index] = new Creature(0, 10, index * 10);
+			creatures[index] = new Creature(0, 10, index * 15 + 5);
+			draw(10, 10, creatures[index].getXPosition(), creatures[index].getYPosition(), Color.BLUE);
 		}
 		
 		for(int index = 0; index < plantNum; index++)
 		{
 			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 800), (int) (Math.random() * 800));
-			
+			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
 		}
 		
+	}
+	
+	private void draw(int width, int height, int x, int y, Color color)
+	{
+		Graphics2D myGraphics = field.createGraphics();
+		
+		myGraphics.setColor(color);
+		myGraphics.drawRect(x, y, width, height);
+		
+		repaint();
+	}
+	
+	public void clear()
+	{
+		this.field = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
+		repaint();
+	}
+	
+	@Override
+	protected void paintComponent(Graphics graphics)
+	{
+		super.paintComponent(graphics);
+		graphics.drawImage(field,  0,  0,  null);
 	}
 	
 	

@@ -139,7 +139,6 @@ public class SimPanel extends JPanel
 		Hashtable<Integer, JLabel> numLabels = new Hashtable<Integer, JLabel>();
 
 		numSlider.setLabelTable(numLabels);
-		numSlider.setOrientation(JSlider.HORIZONTAL);
 		numSlider.setSnapToTicks(true);
 		numSlider.setMajorTickSpacing(3);
 		numSlider.setMinorTickSpacing(1);
@@ -149,7 +148,6 @@ public class SimPanel extends JPanel
 		Hashtable<Integer, JLabel> dietLabels = new Hashtable<Integer, JLabel>();
 
 		dietSlider.setLabelTable(dietLabels);
-		dietSlider.setOrientation(JSlider.HORIZONTAL);
 		dietSlider.setSnapToTicks(true);
 		dietSlider.setMajorTickSpacing(3);
 		dietSlider.setMinorTickSpacing(1);
@@ -158,12 +156,11 @@ public class SimPanel extends JPanel
 		//plantSlider setup
 		Hashtable<Integer, JLabel> plantLabels = new Hashtable<Integer, JLabel>();
 
-		dietSlider.setLabelTable(plantLabels);
-		dietSlider.setOrientation(JSlider.HORIZONTAL);
-		dietSlider.setSnapToTicks(true);
-		dietSlider.setMajorTickSpacing(3);
-		dietSlider.setMinorTickSpacing(1);
-		dietSlider.setPaintTicks(true);
+		plantSlider.setLabelTable(plantLabels);
+		plantSlider.setSnapToTicks(true);
+		plantSlider.setMajorTickSpacing(3);
+		plantSlider.setMinorTickSpacing(1);
+		plantSlider.setPaintTicks(true);
 	}
 	
 	//setters

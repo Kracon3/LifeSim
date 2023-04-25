@@ -10,6 +10,8 @@ public class Creature
 	private boolean eatsMeat;
 	private int xPosition;
 	private int yPosition;
+	private int xHomePosition;
+	private int yHomePosition;
 	
 	public Creature(int speed, int intelligence, int scariness, int fullness, int nourishment, boolean eatsMeat, int xPosition, int yPosition)
 	{
@@ -20,6 +22,8 @@ public class Creature
 		this.eatsMeat = eatsMeat;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
+		this.xHomePosition = xPosition;
+		this.yHomePosition = yPosition;
 	}
 	
 	public Creature(int fullness,  int xPosition, int yPosition)
@@ -93,6 +97,16 @@ public class Creature
 	public int getYPosition()
 	{
 		return yPosition;
+	}
+	
+	public int getXHomePosition()
+	{
+		return xHomePosition;
+	}
+	
+	public int getYHomePosition()
+	{
+		return yHomePosition;
 	}
 	
 }
