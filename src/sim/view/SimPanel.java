@@ -41,7 +41,7 @@ public class SimPanel extends JPanel
 		
 		this.app = app;
 		this.layout = new SpringLayout();
-		this.panel = new LifePanel(app);
+		this.panel = new LifePanel(app, this);
 		
 		this.buttonPanel = new JPanel(new GridLayout(0, 1));
 		this.numSliderLabel = new JLabel("Number of animals");
