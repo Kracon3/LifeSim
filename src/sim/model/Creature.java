@@ -8,12 +8,14 @@ public class Creature
 	private int fullness;
 	private int nourishment;
 	private boolean eatsMeat;
+	private boolean findingFood;
+	private boolean reproducable;
 	private int xPosition;
 	private int yPosition;
 	private int xHomePosition;
 	private int yHomePosition;
 	
-	public Creature(int speed, int intelligence, int scariness, int fullness, int nourishment, boolean eatsMeat, int xPosition, int yPosition)
+	public Creature(int speed, int intelligence, int scariness, int fullness, int nourishment, boolean eatsMeat, int xPosition, int yPosition, boolean findingFood, boolean reproducable)
 	{
 		this.speed = speed;
 		this.intelligence = intelligence;
@@ -24,13 +26,17 @@ public class Creature
 		this.yPosition = yPosition;
 		this.xHomePosition = xPosition;
 		this.yHomePosition = yPosition;
+		this.findingFood = findingFood;
+		this.reproducable = reproducable;
 	}
 	
-	public Creature(int fullness,  int xPosition, int yPosition)
+	public Creature(int fullness,  int xPosition, int yPosition, boolean findingFood, boolean reproducable)
 	{
 		this.fullness = fullness;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
+		this.findingFood = findingFood;
+		this.reproducable = reproducable;
 	}
 	
 	public void setSpeed(int speed)
@@ -56,6 +62,15 @@ public class Creature
 	public void eat(int nourishment)
 	{
 		this.fullness += nourishment;
+	}
+	
+	public void setFindingFood(boolean findingFood)
+	{
+		this.findingFood = findingFood;
+	}
+	public void setReproducable(boolean reproducable)
+	{
+		this.reproducable = reproducable;
 	}
 	
 	public void move(int x, int y)
@@ -87,6 +102,15 @@ public class Creature
 	public int getFullness()
 	{
 		return fullness;
+	}
+	
+	public boolean isFindingFood()
+	{
+		return findingFood;
+	}
+	public boolean isReproducable()
+	{
+		return reproducable;
 	}
 	
 	public int getXPosition()

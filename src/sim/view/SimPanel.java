@@ -123,6 +123,7 @@ public class SimPanel extends JPanel
 	{
 		layout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.NORTH, this);
 		
 		layout.putConstraint(SpringLayout.WEST, startButton, 50, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.EAST, startButton, -50, SpringLayout.WEST, panel);
