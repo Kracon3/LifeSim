@@ -32,7 +32,7 @@ public class LifePanel extends JPanel
 		
 	}
 	
-	public void start() throws InterruptedException
+	public void start()
 	{
 		boolean running = true;
 		int creaturesHome = 0;
@@ -72,7 +72,16 @@ public class LifePanel extends JPanel
 		
 		while (running)
 		{
-			Thread.sleep(1000);
+			try 
+			{
+				Thread.sleep(1000);
+			} 
+			
+			catch (InterruptedException exception) 
+			{
+				exception.printStackTrace();
+			}
+			
 			clear();
 			
 			nearestPlantArray = findNearestPlantDirectionAll(creatures, plants);
