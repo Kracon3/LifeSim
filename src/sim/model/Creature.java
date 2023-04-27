@@ -35,6 +35,8 @@ public class Creature
 		this.fullness = fullness;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
+		this.xHomePosition = xPosition;
+		this.yHomePosition = yPosition;
 		this.findingFood = findingFood;
 		this.reproducable = reproducable;
 	}
