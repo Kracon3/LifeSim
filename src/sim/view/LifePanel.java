@@ -34,19 +34,26 @@ public class LifePanel extends JPanel
 	
 	public void start()
 	{
-		boolean running = true;
-		int creaturesHome = 0;
-		
 		clear();
 		
 		//Population Phase
 		int creatureNum = simPanel.getCreatureNum();
 		int plantNum = simPanel.getPlantNum();
 		int dietRatio = simPanel.getDietRatio();
-		boolean canReproduce = false;
 		
 		Creature[] creatures = new Creature[creatureNum];
 		Plant[] plants = new Plant[plantNum];
+		
+		populate(creatures, plants, creatureNum, plantNum);
+		
+		//Movement Phase
+		movement(true, creatures, plants);
+		
+	}
+	
+	private void populate(Creature[] creatures, Plant[] plants, int creatureNum, int plantNum)
+	{
+		boolean canReproduce = false;
 		
 		for(int index = 0; index < creatureNum; index++)
 		{
@@ -65,37 +72,77 @@ public class LifePanel extends JPanel
 			plants[index] = new Plant((int) (Math.random()) * 10, (int) (Math.random() * 880 + 25), (int) (Math.random() * 900 + 5));
 			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
 		}
+	}
+	
+	private void draw(int width, int height, int x, int y, Color color)
+	{
+		Graphics2D myGraphics = field.createGraphics();
 		
-		//Movement Phase
+		myGraphics.setColor(color);
+		myGraphics.drawRect(x, y, width, height);
+		
+		repaint();
+	}
+	
+	private void movement(boolean running, Creature[] creatures, Plant[] plants)
+	{
+		int creaturesHome = 0;
+		
 		String[] nearestPlantArray;
 		String[] homeDirectionArray;
 		
-		while (running)
-		{
-			try 
-			{
-				Thread.sleep(1000);
-			} 
-			
-			catch (InterruptedException exception) 
-			{
-				exception.printStackTrace();
-			}
-			
+		int creatureNum = creatures.length;
+		int plantNum = plants.length;
+		
+		//while (running)
+		//{
+			pause(500);
 			clear();
 			
 			nearestPlantArray = findNearestPlantDirectionAll(creatures, plants);
-			homeDirectionArray = findNearestPlantDirectionAll(creatures, plants);
+			homeDirectionArray = findHomeDirectionAll(creatures);
+			
 			for(int index = 0; index < creatureNum; index++)
 			{
 				if (creatures[index].isFindingFood())
 				{
-					findPlants(index, creatures,  nearestPlantArray);
+					if (nearestPlantArray[index].contains("up"))
+					{
+						creatures[index].move(0, -1);
+					}
+					if (nearestPlantArray[index].contains("left"))
+					{
+						creatures[index].move(-1, 0);
+					}
+					if (nearestPlantArray[index].contains("down"))
+					{
+						creatures[index].move(0, 1);
+					}
+					if (nearestPlantArray[index].contains("right"))
+					{
+						creatures[index].move(1, 0);
+					}
 				}
 				
 				else
 				{
-					findHome(index, creatures, homeDirectionArray);
+					if (homeDirectionArray[index].contains("up"))
+					{
+						creatures[index].move(0, -1);
+					}
+					if (homeDirectionArray[index].contains("left"))
+					{
+						creatures[index].move(-1, 0);
+					}
+					if (homeDirectionArray[index].contains("down"))
+					{
+						creatures[index].move(0, 1);
+					}
+					if (homeDirectionArray[index].contains("right"))
+					{
+						creatures[index].move(1, 0);
+					}
+					
 				}
 			
 				draw(10, 10, creatures[index].getXPosition(), creatures[index].getYPosition(), Color.BLUE);
@@ -123,26 +170,16 @@ public class LifePanel extends JPanel
 			}
 			
 			creaturesHome = 0;
-		}
+		//}
 	}
 	
-	private void draw(int width, int height, int x, int y, Color color)
-	{
-		Graphics2D myGraphics = field.createGraphics();
-		
-		myGraphics.setColor(color);
-		myGraphics.drawRect(x, y, width, height);
-		
-		repaint();
-	}
-	
-	public void clear()
+	private void clear()
 	{
 		this.field = new BufferedImage(910, 910, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 	}
 	
-	public void findPlants(int index, Creature[] creatures, String[] nearestPlantArray)
+	private void findPlants(int index, Creature[] creatures, String[] nearestPlantArray)
 	{
 		if (nearestPlantArray[index] == "up")
 		{
@@ -178,7 +215,7 @@ public class LifePanel extends JPanel
 		}
 	}
 	
-	public void findHome(int index, Creature[] creatures, String[] homeDirectionArray)
+	private void findHome(int index, Creature[] creatures, String[] homeDirectionArray)
 	{
 		if (homeDirectionArray[index] == "up")
 		{
@@ -214,7 +251,19 @@ public class LifePanel extends JPanel
 		}
 	}
 	
-	public String[] findNearestPlantDirectionAll(Creature[] creatures, Plant[] plants)
+	private void pause(int milliseconds)
+	  {
+	    try
+	    {
+	      Thread.sleep(milliseconds);
+	    }
+	    catch(InterruptedException e)
+	    {
+	      throw new RuntimeException(e);
+	    }
+	  }
+	
+	private String[] findNearestPlantDirectionAll(Creature[] creatures, Plant[] plants)
 	{
 		int creatureNum = simPanel.getCreatureNum();
 		int plantNum = simPanel.getPlantNum();
@@ -256,7 +305,7 @@ public class LifePanel extends JPanel
 		return creatureToNearestPlant;
 	}
 	
-	public String[] findHomeDirectionAll(Creature[] creatures)
+	private String[] findHomeDirectionAll(Creature[] creatures)
 	{
 		int creatureNum = simPanel.getCreatureNum();
 		String[] creatureToHome = new String[creatureNum];
