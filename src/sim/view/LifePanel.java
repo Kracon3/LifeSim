@@ -107,7 +107,7 @@ public class LifePanel extends JPanel
 		int plantNum = plants.length;
 		
 		//timer
-		timer = new javax.swing.Timer(50, listener -> 
+		timer = new javax.swing.Timer(1, listener -> 
 		{
 			step(creatures, plantList, creatureNum, plantNum, nearestPlantArray, homeDirectionArray);
 
