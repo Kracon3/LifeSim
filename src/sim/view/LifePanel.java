@@ -4,7 +4,10 @@ import sim.controller.Controller;
 import sim.view.SimPanel;
 import sim.model.*;
 import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 public class LifePanel extends JPanel
@@ -13,6 +16,8 @@ public class LifePanel extends JPanel
 	
 	private SimPanel simPanel;
 	private BufferedImage field;
+	private ActionListener listener;
+	private Timer timer;
 	
 	public LifePanel(Controller app, SimPanel simPanel)
 	{
@@ -47,7 +52,7 @@ public class LifePanel extends JPanel
 		populate(creatures, plants, creatureNum, plantNum);
 		
 		//Movement Phase
-		movement(true, creatures, plants);
+		movement(creatures, plants);
 		
 	}
 	
@@ -84,99 +89,21 @@ public class LifePanel extends JPanel
 		repaint();
 	}
 	
-	private void movement(boolean running, Creature[] creatures, Plant[] plants)
+	private void movement(Creature[] creatures, Plant[] plants)
 	{
-		int creaturesHome = 0;
-		
-		String[] nearestPlantArray;
-		String[] homeDirectionArray;
+		String[] nearestPlantArray = {};
+		String[] homeDirectionArray = {};
 		
 		int creatureNum = creatures.length;
 		int plantNum = plants.length;
 		
-		//loop
-		while (running)
+		//timer
+		timer = new javax.swing.Timer(50, listener -> 
 		{
-			pause(10);
-			clear();
-			
-			int nearestPlantIndex = 0;
-			
-			nearestPlantArray = findNearestPlantDirectionAll(creatures, plants);
-			homeDirectionArray = findHomeDirectionAll(creatures);
-			System.out.println("made arrays");
-			
-			
-			for(int index = 0; index < creatureNum; index++)
-			{
-				if (creatures[index].isFindingFood())
-				{
-					if (nearestPlantArray[index].contains("up"))
-					{
-						creatures[index].move(0, -1);
-					}
-					if (nearestPlantArray[index].contains("left"))
-					{
-						creatures[index].move(-1, 0);
-					}
-					if (nearestPlantArray[index].contains("down"))
-					{
-						creatures[index].move(0, 1);
-					}
-					if (nearestPlantArray[index].contains("right"))
-					{
-						creatures[index].move(1, 0);
-					}
-				}
-				
-				else
-				{
-					if (homeDirectionArray[index].contains("up"))
-					{
-						creatures[index].move(0, -1);
-					}
-					if (homeDirectionArray[index].contains("left"))
-					{
-						creatures[index].move(-1, 0);
-					}
-					if (homeDirectionArray[index].contains("down"))
-					{
-						creatures[index].move(0, 1);
-					}
-					if (homeDirectionArray[index].contains("right"))
-					{
-						creatures[index].move(1, 0);
-					}
-					
-				}
-				
-				//finds plant closest to creature
-				for (int plantIndex = 1; plantIndex < plantNum; plantIndex++)
-				{
-					if(Math.abs(plants[plantIndex].getXPosition() - creatures[index].getXPosition()) < Math.abs(plants[nearestPlantIndex].getXPosition() - creatures[index].getXPosition()))
-					{
-						if(Math.abs(plants[plantIndex].getYPosition() - creatures[index].getYPosition()) < Math.abs(plants[nearestPlantIndex].getYPosition() - creatures[index].getYPosition()))
-						{
-							nearestPlantIndex = plantIndex;
-						}
-					}
-				}
-				
-				//if plant and animal are on the same pixel, creature wants to go home
-				if (creatures[index].getXPosition() == plants[nearestPlantIndex].getXPosition() && creatures[index].getYPosition() == plants[nearestPlantIndex].getYPosition())
-				{
-					creatures[index].setFindingFood(false);
-				}
+			step(creatures, plants, creatureNum, plantNum, nearestPlantArray, homeDirectionArray);
 
-				draw(10, 10, creatures[index].getXPosition(), creatures[index].getYPosition(), Color.BLUE);
-			}
-		
-			//redraws the plants
-			for(int index = 0; index < plantNum; index++)
-			{
-				System.out.println("draw plant");
-				draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
-			}
+			boolean running = true;
+			int creaturesHome = 0;
 			
 			//checks to see how many creatures are home
 			for(int index = 0; index < creatureNum; index++)
@@ -184,20 +111,28 @@ public class LifePanel extends JPanel
 				if (creatures[index].getXPosition() == creatures[index].getXHomePosition() && creatures[index].getYPosition() == creatures[index].getYHomePosition())
 				{
 					creaturesHome++;
-					System.out.println("update count");
+					System.out.println("Creature is home");
 				}
 			}
-			
+					
 			//if all creatures are home, stop
 			if (creaturesHome == creatureNum)
 			{
 				System.out.println("stop loop");
 				running = false;
 			}
-			
-			System.out.println("reset home");
+					
+			//reset creaturesHome counter
+			System.out.println("reset counter");
 			creaturesHome = 0;
-		}
+			
+			if (!running)
+			{
+				timer.stop();
+			}
+		});
+
+		timer.start();
 	}
 	
 	private void clear()
@@ -217,6 +152,93 @@ public class LifePanel extends JPanel
 	      throw new RuntimeException(e);
 	    }
 	  }
+	
+	private void step(Creature[] creatures, Plant[] plants, int creatureNum, int plantNum, String[] nearestPlantArray, String[] homeDirectionArray)
+	{
+		pause(10);
+		clear();
+		
+		int nearestPlantIndex = 0;
+		
+		nearestPlantArray = findNearestPlantDirectionAll(creatures, plants);
+		homeDirectionArray = findHomeDirectionAll(creatures);
+		System.out.println("found nearest plants");
+		
+		//changes creature position and draws creatures
+		for(int index = 0; index < creatureNum; index++)
+		{
+			if (creatures[index].isFindingFood())
+			{
+				if (nearestPlantArray[index].contains("up"))
+				{
+					creatures[index].move(0, -1);
+				}
+				if (nearestPlantArray[index].contains("left"))
+				{
+					creatures[index].move(-1, 0);
+				}
+				if (nearestPlantArray[index].contains("down"))
+				{
+					creatures[index].move(0, 1);
+				}
+				if (nearestPlantArray[index].contains("right"))
+				{
+					creatures[index].move(1, 0);
+				}
+			}
+			
+			else
+			{
+				if (homeDirectionArray[index].contains("up"))
+				{
+					creatures[index].move(0, -1);
+				}
+				if (homeDirectionArray[index].contains("left"))
+				{
+					creatures[index].move(-1, 0);
+				}
+				if (homeDirectionArray[index].contains("down"))
+				{
+					creatures[index].move(0, 1);
+				}
+				if (homeDirectionArray[index].contains("right"))
+				{
+					creatures[index].move(1, 0);
+				}
+				
+			}
+			
+			//finds plant closest to creature
+			for (int plantIndex = 1; plantIndex < plantNum; plantIndex++)
+			{
+				if(Math.abs(plants[plantIndex].getXPosition() - creatures[index].getXPosition()) < Math.abs(plants[nearestPlantIndex].getXPosition() - creatures[index].getXPosition()))
+				{
+					if(Math.abs(plants[plantIndex].getYPosition() - creatures[index].getYPosition()) < Math.abs(plants[nearestPlantIndex].getYPosition() - creatures[index].getYPosition()))
+					{
+						nearestPlantIndex = plantIndex;
+					}
+				}
+			}
+			
+			//if plant and animal are on the same pixel, creature wants to go home
+			if (creatures[index].getXPosition() == plants[nearestPlantIndex].getXPosition() && creatures[index].getYPosition() == plants[nearestPlantIndex].getYPosition())
+			{
+				creatures[index].setFindingFood(false);
+			}
+
+			//Draws Creature
+			draw(10, 10, creatures[index].getXPosition(), creatures[index].getYPosition(), Color.BLUE);
+		}
+	
+		//redraws the plants
+		for(int index = 0; index < plantNum; index++)
+		{
+			System.out.println("draw plant");
+			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
+		}
+		
+		
+	}
 	
 	private String[] findNearestPlantDirectionAll(Creature[] creatures, Plant[] plants)
 	{
@@ -297,6 +319,8 @@ public class LifePanel extends JPanel
 		super.paintComponent(graphics);
 		graphics.drawImage(field,  0,  0,  null);
 	}
+	
+	
 	
 	
 }
