@@ -17,7 +17,6 @@ public class LifePanel extends JPanel
 	
 	private SimPanel simPanel;
 	private BufferedImage field;
-	private ActionListener listener;
 	private Timer timer;
 	private ArrayList plants;
 	
