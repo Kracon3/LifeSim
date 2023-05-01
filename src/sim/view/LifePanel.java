@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class LifePanel extends JPanel
 {
@@ -18,6 +19,7 @@ public class LifePanel extends JPanel
 	private BufferedImage field;
 	private ActionListener listener;
 	private Timer timer;
+	private ArrayList plants;
 	
 	public LifePanel(Controller app, SimPanel simPanel)
 	{
@@ -94,13 +96,20 @@ public class LifePanel extends JPanel
 		String[] nearestPlantArray = {};
 		String[] homeDirectionArray = {};
 		
+		ArrayList<Plant> plantList = new ArrayList<Plant>();
+		
+		for(int index = 0; index < plants.length; index++)
+		{
+			plantList.add(plants[index]);
+		}
+		
 		int creatureNum = creatures.length;
 		int plantNum = plants.length;
 		
 		//timer
 		timer = new javax.swing.Timer(50, listener -> 
 		{
-			step(creatures, plants, creatureNum, plantNum, nearestPlantArray, homeDirectionArray);
+			step(creatures, plantList, creatureNum, plantNum, nearestPlantArray, homeDirectionArray);
 
 			boolean running = true;
 			int creaturesHome = 0;
@@ -153,7 +162,7 @@ public class LifePanel extends JPanel
 	    }
 	  }
 	
-	private void step(Creature[] creatures, Plant[] plants, int creatureNum, int plantNum, String[] nearestPlantArray, String[] homeDirectionArray)
+	private void step(Creature[] creatures, ArrayList<Plant> plants, int creatureNum, int plantNum, String[] nearestPlantArray, String[] homeDirectionArray)
 	{
 		pause(10);
 		clear();
@@ -211,9 +220,9 @@ public class LifePanel extends JPanel
 			//finds plant closest to creature
 			for (int plantIndex = 1; plantIndex < plantNum; plantIndex++)
 			{
-				if(Math.abs(plants[plantIndex].getXPosition() - creatures[index].getXPosition()) < Math.abs(plants[nearestPlantIndex].getXPosition() - creatures[index].getXPosition()))
+				if(Math.abs(plants.get(plantIndex).getXPosition() - creatures[index].getXPosition()) < Math.abs(plants.get(nearestPlantIndex).getXPosition() - creatures[index].getXPosition()))
 				{
-					if(Math.abs(plants[plantIndex].getYPosition() - creatures[index].getYPosition()) < Math.abs(plants[nearestPlantIndex].getYPosition() - creatures[index].getYPosition()))
+					if(Math.abs(plants.get(plantIndex).getYPosition() - creatures[index].getYPosition()) < Math.abs(plants.get(nearestPlantIndex).getYPosition() - creatures[index].getYPosition()))
 					{
 						nearestPlantIndex = plantIndex;
 					}
@@ -221,7 +230,7 @@ public class LifePanel extends JPanel
 			}
 			
 			//if plant and animal are on the same pixel, creature wants to go home
-			if (creatures[index].getXPosition() == plants[nearestPlantIndex].getXPosition() && creatures[index].getYPosition() == plants[nearestPlantIndex].getYPosition())
+			if (creatures[index].getXPosition() == plants.get(nearestPlantIndex).getXPosition() && creatures[index].getYPosition() == plants.get(nearestPlantIndex).getYPosition())
 			{
 				creatures[index].setFindingFood(false);
 			}
@@ -234,13 +243,13 @@ public class LifePanel extends JPanel
 		for(int index = 0; index < plantNum; index++)
 		{
 			System.out.println("draw plant");
-			draw(5, 5, plants[index].getXPosition(), plants[index].getYPosition(), Color.GREEN);
+			draw(5, 5, plants.get(index).getXPosition(), plants.get(index).getYPosition(), Color.GREEN);
 		}
 		
 		
 	}
 	
-	private String[] findNearestPlantDirectionAll(Creature[] creatures, Plant[] plants)
+	private String[] findNearestPlantDirectionAll(Creature[] creatures, ArrayList<Plant> plants)
 	{
 		int creatureNum = simPanel.getCreatureNum();
 		int plantNum = simPanel.getPlantNum();
@@ -253,28 +262,28 @@ public class LifePanel extends JPanel
 			creatureToNearestPlant[creatureIndex] = "";
 			for (int plantIndex = 1; plantIndex < plantNum; plantIndex++)
 			{
-				if(Math.abs(plants[plantIndex].getXPosition() - creatures[creatureIndex].getXPosition()) < Math.abs(plants[closestPlantIndex].getXPosition() - creatures[creatureIndex].getXPosition()))
+				if(Math.abs(plants.get(plantIndex).getXPosition() - creatures[creatureIndex].getXPosition()) < Math.abs(plants.get(closestPlantIndex).getXPosition() - creatures[creatureIndex].getXPosition()))
 				{
-					if(Math.abs(plants[plantIndex].getYPosition() - creatures[creatureIndex].getYPosition()) < Math.abs(plants[closestPlantIndex].getYPosition() - creatures[creatureIndex].getYPosition()))
+					if(Math.abs(plants.get(plantIndex).getYPosition() - creatures[creatureIndex].getYPosition()) < Math.abs(plants.get(closestPlantIndex).getYPosition() - creatures[creatureIndex].getYPosition()))
 					{
 						closestPlantIndex = plantIndex;
 					}
 				}
 			}
 			
-			if (plants[closestPlantIndex].getYPosition() < creatures[creatureIndex].getYPosition())
+			if (plants.get(closestPlantIndex).getYPosition() < creatures[creatureIndex].getYPosition())
 			{
 				creatureToNearestPlant[creatureIndex] += "up";
 			}
-			else if (plants[closestPlantIndex].getYPosition() > creatures[creatureIndex].getYPosition())
+			else if (plants.get(closestPlantIndex).getYPosition() > creatures[creatureIndex].getYPosition())
 			{
 				creatureToNearestPlant[creatureIndex] += "down";
 			}
-			if (plants[closestPlantIndex].getXPosition() < creatures[creatureIndex].getXPosition())
+			if (plants.get(closestPlantIndex).getXPosition() < creatures[creatureIndex].getXPosition())
 			{
 				creatureToNearestPlant[creatureIndex] += "left";
 			}
-			else if (plants[closestPlantIndex].getXPosition() > creatures[creatureIndex].getXPosition())
+			else if (plants.get(closestPlantIndex).getXPosition() > creatures[creatureIndex].getXPosition())
 			{
 				creatureToNearestPlant[creatureIndex] += "right";
 			}
