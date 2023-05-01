@@ -141,6 +141,7 @@ public class LifePanel extends JPanel
 			}
 		});
 
+		timer.stop();
 		timer.start();
 	}
 	
