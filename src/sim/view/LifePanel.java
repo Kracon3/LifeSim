@@ -174,8 +174,6 @@ public class LifePanel extends JPanel
 		homeDirectionArray = findHomeDirectionAll(creatures);
 		System.out.println("found nearest plants");
 		
-		plantNum = plants.size() - 1;
-		
 		//changes creature position and draws creatures
 		for(int index = 0; index < creatureNum; index++)
 		{
@@ -221,7 +219,7 @@ public class LifePanel extends JPanel
 			}
 			
 			//finds plant closest to creature
-			for (int plantIndex = 1; plantIndex < plantNum; plantIndex++)
+			for (int plantIndex = 1; plantIndex < plants.size(); plantIndex++)
 			{
 				if(Math.abs(plants.get(plantIndex).getXPosition() - creatures[index].getXPosition()) < Math.abs(plants.get(nearestPlantIndex).getXPosition() - creatures[index].getXPosition()))
 				{
@@ -245,7 +243,7 @@ public class LifePanel extends JPanel
 		}
 	
 		//redraws the plants
-		for(int index = 0; index < plantNum; index++)
+		for(int index = 0; index < plants.size(); index++)
 		{
 			System.out.println("draw plant");
 			draw(5, 5, plants.get(index).getXPosition(), plants.get(index).getYPosition(), Color.GREEN);
