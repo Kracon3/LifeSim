@@ -18,7 +18,6 @@ public class LifePanel extends JPanel
 	private SimPanel simPanel;
 	private BufferedImage field;
 	private Timer timer;
-	private ArrayList plants;
 	
 	public LifePanel(Controller app, SimPanel simPanel)
 	{
@@ -262,6 +261,8 @@ public class LifePanel extends JPanel
 		for (int creatureIndex = 0; creatureIndex < creatureNum; creatureIndex++)
 		{
 			creatureToNearestPlant[creatureIndex] = "";
+			
+			//determines closest plant's index
 			for (int plantIndex = 1; plantIndex < plantNum; plantIndex++)
 			{
 				if(Math.abs(plants.get(plantIndex).getXPosition() - creatures[creatureIndex].getXPosition()) < Math.abs(plants.get(closestPlantIndex).getXPosition() - creatures[creatureIndex].getXPosition()))
@@ -273,6 +274,7 @@ public class LifePanel extends JPanel
 				}
 			}
 			
+			//determines nearest plant's direction compared to creature
 			if (plants.get(closestPlantIndex).getYPosition() < creatures[creatureIndex].getYPosition())
 			{
 				creatureToNearestPlant[creatureIndex] += "up";

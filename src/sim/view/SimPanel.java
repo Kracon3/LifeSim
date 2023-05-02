@@ -27,7 +27,7 @@ public class SimPanel extends JPanel
 	private final int MINIMUM_NUM = 0;
 	private final int MAXIMUM_NUM = 60;
 	private int creatureNum = 60;
-	private int plantNum = 70;
+	private int plantNum = 60;
 	
 	private JSlider dietSlider;
 	private final int MINIMUM_RATIO = 1;
@@ -52,7 +52,7 @@ public class SimPanel extends JPanel
 		
 		this.numSlider = new JSlider(MINIMUM_NUM, MAXIMUM_NUM, creatureNum);
 		this.dietSlider = new JSlider(MINIMUM_RATIO, MAXIMUM_RATIO, dietRatio);
-		this.plantSlider = new JSlider(MINIMUM_NUM, MAXIMUM_NUM + 10, plantNum);
+		this.plantSlider = new JSlider(MINIMUM_NUM, MAXIMUM_NUM * 2, plantNum);
 		
 		setupSliders();
 		setupPanel();
