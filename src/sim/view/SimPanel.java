@@ -21,6 +21,7 @@ public class SimPanel extends JPanel
 	private JLabel plantSliderLabel;
 	
 	private JButton startButton;
+	private JButton stopButton;
 	
 	private JSlider numSlider;
 	private JSlider plantSlider;
@@ -49,6 +50,7 @@ public class SimPanel extends JPanel
 		this.plantSliderLabel = new JLabel("Number of plants");
 		
 		this.startButton = new JButton("Start");
+		this.stopButton = new JButton("Stop");
 		
 		this.numSlider = new JSlider(MINIMUM_NUM, MAXIMUM_NUM, creatureNum);
 		this.dietSlider = new JSlider(MINIMUM_RATIO, MAXIMUM_RATIO, dietRatio);
@@ -74,6 +76,7 @@ public class SimPanel extends JPanel
 		buttonPanel.add(plantSlider);
 		
 		this.add(startButton);
+		this.add(stopButton);
 		
 		this.add(panel);
 	}
@@ -117,6 +120,7 @@ public class SimPanel extends JPanel
 		});
 		
 		startButton.addActionListener(click -> panel.start());
+		stopButton.addActionListener(click -> panel.stop());
 	}
 	
 	private void setupLayout()
@@ -125,8 +129,13 @@ public class SimPanel extends JPanel
 		layout.putConstraint(SpringLayout.SOUTH, panel, 0, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.NORTH, panel, 0, SpringLayout.NORTH, this);
 		
+		layout.putConstraint(SpringLayout.WEST, stopButton, -150, SpringLayout.WEST, panel);
+		layout.putConstraint(SpringLayout.EAST, stopButton, -50, SpringLayout.WEST, panel);
+		layout.putConstraint(SpringLayout.SOUTH, stopButton, 0, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.NORTH, stopButton, -50, SpringLayout.SOUTH, this);
+		
 		layout.putConstraint(SpringLayout.WEST, startButton, 50, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.EAST, startButton, -50, SpringLayout.WEST, panel);
+		layout.putConstraint(SpringLayout.EAST, startButton, 0, SpringLayout.WEST, stopButton);
 		layout.putConstraint(SpringLayout.SOUTH, startButton, 0, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.NORTH, startButton, -50, SpringLayout.SOUTH, this);
 	
