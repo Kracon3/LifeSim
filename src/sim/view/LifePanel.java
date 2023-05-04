@@ -19,8 +19,6 @@ public class LifePanel extends JPanel
 	private BufferedImage field;
 	private Timer timer;
 	
-	private boolean running;
-	
 	public LifePanel(Controller app, SimPanel simPanel)
 	{
 		super();
@@ -28,8 +26,6 @@ public class LifePanel extends JPanel
 		this.app = app;
 		this.simPanel = simPanel;
 		this.field = new BufferedImage(910, 910, BufferedImage.TYPE_INT_ARGB);
-		
-		this.running = true;
 		
 		setupPanel();
 	}
@@ -55,8 +51,8 @@ public class LifePanel extends JPanel
 		
 		populate(creatures, plants, creatureNum, plantNum);
 		
-		//Simulation Phase
-		simulate(creatures, plants);
+		//Movement Phase
+		movement(creatures, plants);
 		
 	}
 	
@@ -93,7 +89,7 @@ public class LifePanel extends JPanel
 		repaint();
 	}
 	
-	private void simulate(Creature[] creatures, Plant[] plants)
+	private void movement(Creature[] creatures, Plant[] plants)
 	{
 		String[] nearestPlantArray = {};
 		String[] homeDirectionArray = {};
@@ -144,22 +140,12 @@ public class LifePanel extends JPanel
 		});
 
 		timer.stop();
-		
-		while (running)
-		{
 		timer.start();
-		
-		}
-	}
-	
-	public void stop()
-	{
-		
 	}
 	
 	private void clear()
 	{
-		this.field = new BufferedImage( 910, 910, BufferedImage.TYPE_INT_ARGB);
+		this.field = new BufferedImage(910, 910, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 	}
 	
