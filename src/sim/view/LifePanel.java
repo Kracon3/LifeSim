@@ -105,7 +105,7 @@ public class LifePanel extends JPanel
 		int plantNum = plants.length;
 		
 		//timer
-		timer = new javax.swing.Timer(1, listener -> 
+		timer = new javax.swing.Timer(15, listener -> 
 		{
 			step(creatures, plantList, creatureNum, plantNum, nearestPlantArray, homeDirectionArray);
 
@@ -149,21 +149,8 @@ public class LifePanel extends JPanel
 		repaint();
 	}
 	
-	private void pause(int milliseconds)
-	  {
-	    try
-	    {
-	      Thread.sleep(milliseconds);
-	    }
-	    catch(InterruptedException e)
-	    {
-	      throw new RuntimeException(e);
-	    }
-	  }
-	
 	private void step(Creature[] creatures, ArrayList<Plant> plants, int creatureNum, int plantNum, String[] nearestPlantArray, String[] homeDirectionArray)
 	{
-		pause(10);
 		clear();
 		
 		int nearestPlantIndex = 0;
