@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 
+/*
+ * SimPanel has 3 Sliders, a startButton, and a lifePanel inside it
+ */
 public class SimPanel extends JPanel
 {
 	//data members
@@ -34,8 +37,11 @@ public class SimPanel extends JPanel
 	private final int MAXIMUM_RATIO = 100;
 	private int dietRatio = 50;
 	
-	//constructor
-	public SimPanel(Controller App)
+	/*
+	 * initializes Controller, SpringLayout, LifePanel, a buttonPanel, 3 sliders, and a button
+	 * calls helper methods
+	 */
+	public SimPanel()
 	{
 		super();
 		
@@ -60,7 +66,12 @@ public class SimPanel extends JPanel
 		setupLayout();
 	}
 	
-	//panel setup methods
+	/*
+	 * sets layout
+	 * adds buttonPanel with 2 sliders and labels in it
+	 * adds startButton
+	 * adds lifePanel
+	 */
 	private void setupPanel()
 	{
 		this.setLayout(layout);
@@ -78,10 +89,16 @@ public class SimPanel extends JPanel
 		this.add(panel);
 	}
 	
+	/*
+	 * sets up slider and button listeners
+	 */
 	private void setupListeners()
 	{
 		numSlider.addChangeListener(new ChangeListener()
 		{
+			/*
+			 * overrides stateChanged to update slider
+			 */
 			@Override
 			public void stateChanged(ChangeEvent event)
 			{
@@ -94,6 +111,9 @@ public class SimPanel extends JPanel
 		
 		dietSlider.addChangeListener(new ChangeListener()
 		{
+			/*
+			 * overrides stateChanged to update slider
+			 */
 			@Override
 			public void stateChanged(ChangeEvent event)
 			{
@@ -106,6 +126,9 @@ public class SimPanel extends JPanel
 		
 		plantSlider.addChangeListener(new ChangeListener()
 		{
+			/*
+			 * overrides stateChanged to update slider
+			 */
 			@Override
 			public void stateChanged(ChangeEvent event)
 			{
@@ -119,6 +142,9 @@ public class SimPanel extends JPanel
 		startButton.addActionListener(click -> panel.start());
 	}
 	
+	/*
+	 * puts constraints on the content of SimPanel
+	 */
 	private void setupLayout()
 	{
 		layout.putConstraint(SpringLayout.EAST, panel, 0, SpringLayout.EAST, this);
@@ -135,6 +161,10 @@ public class SimPanel extends JPanel
 		layout.putConstraint(SpringLayout.EAST, buttonPanel, -25, SpringLayout.WEST, panel);
 	}
 	
+	/*
+	 * gives each slider a hashtable to work with
+	 * sets the settings for each slider
+	 */
 	private void setupSliders()
 	{
 		//numSlider setup
@@ -165,7 +195,9 @@ public class SimPanel extends JPanel
 		plantSlider.setPaintTicks(true);
 	}
 	
-	//setters
+	/*
+	 * setters
+	 */
 	public void setCreatureNum(int creatureNum)
 	{
 		this.creatureNum = creatureNum;
@@ -181,7 +213,9 @@ public class SimPanel extends JPanel
 		this.dietRatio = dietRatio;
 	}
 	
-	//getters
+	/*
+	 * getters
+	 */
 	public int getCreatureNum()
 	{
 		return this.creatureNum;

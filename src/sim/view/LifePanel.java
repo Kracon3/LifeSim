@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/*
+ * creates a JPanel for a life simulation
+ */
 public class LifePanel extends JPanel
 {
 	private Controller app;
@@ -19,6 +22,10 @@ public class LifePanel extends JPanel
 	private BufferedImage field;
 	private Timer timer;
 	
+	/*
+	 * calls super() from JPanel and initializes app, simPanel, and bufferedImage
+	 * calls setupPanel
+	 */
 	public LifePanel(Controller app, SimPanel simPanel)
 	{
 		super();
@@ -30,6 +37,9 @@ public class LifePanel extends JPanel
 		setupPanel();
 	}
 	
+	/*
+	 * sets panel size and color
+	 */
 	private void setupPanel()
 	{
 		this.setPreferredSize(new Dimension(910, 910));
@@ -37,6 +47,9 @@ public class LifePanel extends JPanel
 		
 	}
 	
+	/*
+	 * clears the screen and runs populate() and movement() consecutively
+	 */
 	public void start()
 	{
 		clear();
@@ -56,6 +69,9 @@ public class LifePanel extends JPanel
 		
 	}
 	
+	/*
+	 * fills arrays of creatures and plants, then drawing them in their places
+	 */
 	private void populate(Creature[] creatures, Plant[] plants, int creatureNum, int plantNum)
 	{
 		boolean canReproduce = false;
@@ -79,6 +95,9 @@ public class LifePanel extends JPanel
 		}
 	}
 	
+	/*
+	 * draws a rectangle onto a bufferedImage declared in this class
+	 */
 	private void draw(int width, int height, int x, int y, Color color)
 	{
 		Graphics2D myGraphics = field.createGraphics();
@@ -89,6 +108,10 @@ public class LifePanel extends JPanel
 		repaint();
 	}
 	
+	/*
+	 * starts a timer which runs step()
+	 * stops timer when all creatures are home
+	 */
 	private void movement(Creature[] creatures, Plant[] plants)
 	{
 		String[] nearestPlantArray = {};
@@ -143,12 +166,24 @@ public class LifePanel extends JPanel
 		timer.start();
 	}
 	
+	/*
+	 * clears the screen
+	 */
 	private void clear()
 	{
 		this.field = new BufferedImage(910, 910, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 	}
 	
+	/*
+	 * clears the screen
+	 * redraws plants in the same position
+	 * calls findNearestPlantDirectionAll() to get an array of directions to go for each creature
+	 * calls findHomeDirectionAll() to get an array of directions to go for each creature
+	 * if creature is finding food, uses the plantDirectionArray to go in the direction of the nearest plant
+	 * otherwise, uses homeDirectionArray to go in the direction of home
+	 * redraws creatures in their new positions.
+	 */
 	private void step(Creature[] creatures, ArrayList<Plant> plants, int creatureNum, int plantNum, String[] nearestPlantArray, String[] homeDirectionArray)
 	{
 		clear();
@@ -237,6 +272,10 @@ public class LifePanel extends JPanel
 		
 	}
 	
+	/*
+	 * finds the nearest plant for each creature
+	 * outputs an array of strings that say which way to go  to get to the plant
+	 */
 	private String[] findNearestPlantDirectionAll(Creature[] creatures, ArrayList<Plant> plants)
 	{
 		int creatureNum = creatures.length;
@@ -283,6 +322,9 @@ public class LifePanel extends JPanel
 		return creatureToNearestPlant;
 	}
 	
+	/*
+	 * outputs an array of strings that say which way to go  to get to home
+	 */
 	private String[] findHomeDirectionAll(Creature[] creatures)
 	{
 		int creatureNum = simPanel.getCreatureNum();
@@ -313,14 +355,13 @@ public class LifePanel extends JPanel
 		return creatureToHome;
 	}
 	
+	/*
+	 * overrides paintComponent
+	 */
 	@Override
 	protected void paintComponent(Graphics graphics)
 	{
 		super.paintComponent(graphics);
 		graphics.drawImage(field,  0,  0,  null);
 	}
-	
-	
-	
-	
 }
